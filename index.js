@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import userRoutes from "./routes/user.js";
+import productRoutes from "./routes/product.js";
 
 const app = express();
 dotenv.config();
@@ -29,3 +30,4 @@ mongoose
   .catch((err) => console.log(err.message));
 
 app.use("/", userRoutes);
+app.use("/products", productRoutes);
