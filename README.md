@@ -8,7 +8,7 @@ There are two methods two get started.
 
 ### 1. Through hosted link
 
-You can just enter the hosted link in the Postman app and get started.
+You can just enter the hosted link in the Postman app and get started.<br />
 Link: [https://triveous-backend.onrender.com/](https://triveous-backend.onrender.com/)
 
 ### 2. Through localhost
@@ -31,5 +31,9 @@ npm start
 
 ## Routes
 
-Visit the API routes documentation at `/api-docs`
-Link: [https://triveous-backend.onrender.com/api-docs/](https://triveous-backend.onrender.com/api-docs/)
+Visit the API routes documentation at `/api-docs`<br />
+Link: [https://triveous-backend.onrender.com/api-docs/](https://triveous-backend.onrender.com/api-docs/)<br />
+Use the production server if using the hosted link<br />
+Use the development server if using the localhost<br />
+![image](![Screenshot (163)](https://github.com/Anushareddy5106/triveous-ecommerce/assets/83777087/e1b69458-f126-4f78-ad45-c6981d0de23a)
+)
