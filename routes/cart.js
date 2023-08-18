@@ -14,26 +14,32 @@ import {
 const router = express.Router();
 
 router.post(
-  "/",
+  "/add",
   authenticate,
   authorize(["customer"]),
   rateLimiting,
   addToCart
 );
 router.patch(
-  "/",
+  "/update",
   authenticate,
   authorize(["customer"]),
   rateLimiting,
   updateCartItem
 );
 router.delete(
-  "/",
+  "/remove",
   authenticate,
   authorize(["customer"]),
   rateLimiting,
   removeCartItem
 );
-router.get("/", authenticate, authorize(["customer"]), rateLimiting, getCart);
+router.get(
+  "/get",
+  authenticate,
+  authorize(["customer"]),
+  rateLimiting,
+  getCart
+);
 
 export default router;

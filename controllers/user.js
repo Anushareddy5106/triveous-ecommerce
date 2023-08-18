@@ -23,7 +23,7 @@ export const signUp = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
-    res.status(200).send({ msg: "User successfully signed up", token: token });
+    res.status(201).send({ msg: "User successfully signed up", token: token });
   } catch (err) {
     console.log(err);
     res.status(400).send({ msg: "something went wrong try again" });
@@ -43,7 +43,7 @@ export const signIn = async (req, res) => {
     const isMatch = await bcrypt.compare(req.body.password, user.password);
 
     if (!isMatch) {
-      return res.status(200).send({ msg: "Invalid credentials" });
+      return res.status(401).send({ msg: "Invalid credentials" });
     }
 
     const token = jwt.sign(

@@ -49,9 +49,9 @@ export const placeOrder = async (req, res) => {
 
     await cart.save();
 
-    res.status(200).send({ message: "Order placed successfully", order });
+    res.status(201).send({ message: "Order placed successfully", order });
   } catch (err) {
-    res.status(400).send({ err: "Internal server error" });
+    res.status(500).send({ err: "Internal server error" });
   }
 };
 

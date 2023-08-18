@@ -11,7 +11,7 @@ export const authorize = (requiredRoles) => {
       }
     } catch (err) {
       res
-        .status(401)
+        .status(403)
         .send({ message: "Something went wrong please try again" });
     }
   };

@@ -1,0 +1,354 @@
+openapi: 3.0.0
+info:
+  title: Triveous E-commerce
+  version: 1.0.0
+  description: API for an e-commerce platform
+
+servers:
+  - url: http://localhost:5000/
+    description: Development server
+
+paths:
+  /signup:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the user.
+                email:
+                  type: string
+                  format: email
+                  description: The email address of the user.
+                password:
+                  type: string
+                  description: The password of the user.
+                role:
+                  type: string
+                  enum: ["seller", "customer"]
+                  description: The role of the user (seller or customer). Default is "customer".
+      responses:
+        "201":
+          description: User successfully signed up.
+        "200":
+          description: User already exists.
+        "400":
+          description: Internal Server Error.
+
+  /signin:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: The email address of the user.
+                password:
+                  type: string
+                  description: The password of the user.
+              required:
+                - email
+                - password
+      responses:
+        "200":
+          description: User login successful.
+        "401":
+          description: User not found or invalid credentials.
+        "400":
+          description: Internal Server Error.
+
+  #products
+  /product/add:
+    post:
+      summary: Add a new product
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: The title of the product.
+                description:
+                  type: string
+                  description: The description of the product.
+                price:
+                  type: number
+                  description: The price of the product.
+                availability:
+                  type: boolean
+                  description: The availability status of the product.
+                category:
+                  type: string
+                  enum:
+                    [
+                      "Clothes",
+                      "Shoes",
+                      "Electronics",
+                      "Kitchen & Appliances",
+                      "Home Decor",
+                      "Healthcare",
+                      "Groceries",
+                    ]
+                  description: The category of the product.
+              required:
+                - title
+                - description
+                - price
+                - availability
+                - category
+      responses:
+        "201":
+          description: Product added successfully.
+        "401":
+          description: User not authenticated or invalid token.
+        "403":
+          description: User is not authorized to add products.
+        "400":
+          description: Internal Server Error.
+
+  /products/{productId}:
+    get:
+      summary: Get product details by ID
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Product details fetched successfully
+        "400":
+          description: Something went wrong
+
+  /products/categories/{categoryId}:
+    get:
+      summary: Get products by category ID
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Products fetched successfully
+        "400":
+          description: Something went wrong
+
+  #category
+
+  /categoryList:
+    get:
+      summary: Get Category List
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Something went wrong.
+  #cart
+
+  /cart/add:
+    post:
+      summary: Add a product to the cart
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: The ID of the user.
+                productId:
+                  type: string
+                  description: The ID of the product to add to the cart.
+      responses:
+        "201":
+          description: Product added to cart successfully.
+        "400":
+          description: Product ID is required.
+        "404":
+          description: Product not found.
+        "500":
+          description: Something went wrong.
+
+  /cart/get:
+    get:
+      summary: Get user's cart
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Cart not found.
+        "500":
+          description: Something went wrong.
+
+  /cart/update:
+    patch:
+      summary: Update quantity of a product in the cart
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: quantity
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: Cart item updated successfully.
+        "400":
+          description: Product ID and a valid quantity are required.
+        "404":
+          description: Cart or product not found in the cart.
+        "500":
+          description: Internal Server Error.
+
+  /cart/remove:
+    delete:
+      summary: Remove a product from the cart
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Cart item removed successfully.
+        "400":
+          description: Product ID is required.
+        "404":
+          description: Cart or product not found in the cart.
+        "500":
+          description: Internal Server Error.
+
+  #order
+
+  /order/placeOrder:
+    post:
+      summary: Place a new order
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: The ID of the user placing the order.
+                products:
+                  type: array
+                  items:
+                    productId:
+                      type: string
+                      description: The ID of the product to add to the order.
+
+              required:
+                - userId
+                - products
+      responses:
+        "201":
+          description: Order placed successfully.
+        "400":
+          description: User ID and products are required.
+        "404":
+          description: Product not found or cart is empty.
+        "500":
+          description: Internal Server Error.
+
+  /order/history:
+    get:
+      summary: Get order history for a user
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized. User not authenticated or invalid token.
+        "500":
+          description: Internal Server Error.
+
+  /order/orderDetails/{orderId}:
+    get:
+      summary: Get order details by ID
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized. User not authenticated or invalid token.
+        "404":
+          description: Not Found. Order not found.
+        "500":
+          description: Internal Server Error.
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

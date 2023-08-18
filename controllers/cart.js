@@ -11,7 +11,7 @@ export const addToCart = async (req, res) => {
 
     const product = await Product.findById(productId);
     if (!product) {
-      return res.status(400).json({ message: "Product not found" });
+      return res.status(404).json({ message: "Product not found" });
     }
 
     let cart = await Cart.findOne({ userId });
@@ -43,7 +43,7 @@ export const addToCart = async (req, res) => {
       .status(201)
       .send({ message: "Product added to cart successfully", cart });
   } catch (err) {
-    res.status(400).json({ err: "Something went wrong" });
+    res.status(500).json({ err: "Something went wrong" });
   }
 };
 
@@ -81,7 +81,7 @@ export const updateCartItem = async (req, res) => {
       .status(200)
       .send({ message: "Cart item updated successfully", cart: cart });
   } catch (err) {
-    res.status(400).send({ err: "Something went wrong" });
+    res.status(500).send({ err: "Something went wrong" });
   }
 };
 
@@ -114,7 +114,7 @@ export const removeCartItem = async (req, res) => {
       .status(200)
       .send({ message: "Cart item removed successfully", cart: cart });
   } catch (err) {
-    res.status(400).send({ err: "Something went wrong" });
+    res.status(500).send({ err: "Something went wrong" });
   }
 };
 
@@ -127,7 +127,7 @@ export const getCart = async (req, res) => {
       return res.status(404).send({ message: "Cart not found" });
     }
 
-    res.json({ cart });
+    res.status(200).json({ cart });
   } catch (err) {
     res.status(500).send({ err: "Something went wrong" });
   }

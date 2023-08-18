@@ -53,7 +53,9 @@ export const fetchProductsByCategory = async (req, res) => {
       return res.status(200).send({ message: "No products in this category" });
     }
 
-    res.status(200).send({ products: products });
+    res
+      .status(200)
+      .send({ message: "Products fetched successfully", products: products });
   } catch (err) {
     res.status(400).send({ message: "Something went wrong" });
   }
