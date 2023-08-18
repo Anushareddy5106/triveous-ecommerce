@@ -3,9 +3,8 @@ import Product from "../models/Product.js";
 
 export const addToCart = async (req, res) => {
   const { userId } = req.params;
+  const { productId } = req.body;
   try {
-    const { productId } = req.body;
-
     if (!productId) {
       return res.status(400).json({ message: "Product ID is required" });
     }
