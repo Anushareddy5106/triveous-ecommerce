@@ -23,6 +23,9 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use(cors());
 
+app.get("/",(req,res)=>{
+    res.send("Triveous E-commerce Backend Server")
+})
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // console.log(process.env);
