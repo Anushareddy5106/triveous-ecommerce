@@ -35,5 +35,6 @@ Visit the API routes documentation at `/api-docs`<br />
 Link: [https://triveous-backend.onrender.com/api-docs/](https://triveous-backend.onrender.com/api-docs/)<br />
 Use the production server if using the hosted link<br />
 Use the development server if using the localhost<br />
-![image](![Screenshot (163)](https://github.com/Anushareddy5106/triveous-ecommerce/assets/83777087/e1b69458-f126-4f78-ad45-c6981d0de23a)
-)
+![Screenshot (163)](https://github.com/Anushareddy5106/triveous-ecommerce/assets/83777087/03625079-17b6-4c43-9195-6397f2e6da23)
+
+
