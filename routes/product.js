@@ -2,6 +2,7 @@ import express from "express";
 
 import { authenticate } from "../middlewares/authenticate.js";
 import { authorize } from "../middlewares/authorize.js";
+import { rateLimiting } from "../middlewares/rateLimiting.js";
 
 import {
   addProduct,
@@ -11,17 +12,25 @@ import {
 
 const router = express.Router();
 
-router.post("/add", authenticate, authorize(["seller"]), addProduct);
+router.post(
+  "/add",
+  authenticate,
+  authorize(["seller"]),
+  rateLimiting,
+  addProduct
+);
 router.get(
   "/:productId",
   authenticate,
   authorize(["seller", "customer"]),
+  rateLimiting,
   fetchProductById
 );
 router.get(
   "/categories/:categoryId",
   authenticate,
   authorize(["seller", "customer"]),
+  rateLimiting,
   fetchProductsByCategory
 );
 

@@ -2,6 +2,7 @@ import express from "express";
 
 import { authenticate } from "../middlewares/authenticate.js";
 import { authorize } from "../middlewares/authorize.js";
+import { rateLimiting } from "../middlewares/rateLimiting.js";
 
 import {
   addToCart,
@@ -12,9 +13,27 @@ import {
 
 const router = express.Router();
 
-router.post("/", authenticate, authorize(["customer"]), addToCart);
-router.patch("/", authenticate, authorize(["customer"]), updateCartItem);
-router.delete("/", authenticate, authorize(["customer"]), removeCartItem);
-router.get("/", authenticate, authorize(["customer"]), getCart);
+router.post(
+  "/",
+  authenticate,
+  authorize(["customer"]),
+  rateLimiting,
+  addToCart
+);
+router.patch(
+  "/",
+  authenticate,
+  authorize(["customer"]),
+  rateLimiting,
+  updateCartItem
+);
+router.delete(
+  "/",
+  authenticate,
+  authorize(["customer"]),
+  rateLimiting,
+  removeCartItem
+);
+router.get("/", authenticate, authorize(["customer"]), rateLimiting, getCart);
 
 export default router;

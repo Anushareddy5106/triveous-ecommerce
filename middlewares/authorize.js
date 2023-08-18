@@ -1,5 +1,6 @@
 export const authorize = (requiredRoles) => {
   return async (req, res, next) => {
+    // console.log("authorize");
     try {
       const role = req.body.role;
 
