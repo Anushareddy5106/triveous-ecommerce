@@ -33,5 +33,5 @@ mongoose
 
 app.use("/", userRoutes);
 app.use("/products", productRoutes);
-app.use("/cart/:userId", cartRoutes);
-app.use("/order/:userId", orderRoutes);
+app.use("/cart", cartRoutes);
+app.use("/order", orderRoutes);

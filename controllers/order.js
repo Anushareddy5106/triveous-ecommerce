@@ -2,7 +2,7 @@ import Order from "../models/order.js";
 import Cart from "../models/Cart.js";
 
 export const placeOrder = async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.body;
   const { products } = req.body;
 
   try {
@@ -31,7 +31,7 @@ export const placeOrder = async (req, res) => {
 
     let totalPrice = 0;
     cartItems.map((c) => (totalPrice += c.total));
-    console.log(totalPrice);
+    // console.log(totalPrice);
 
     const order = new Order({
       userId,
@@ -56,7 +56,7 @@ export const placeOrder = async (req, res) => {
 };
 
 export const getOrderHistory = async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.body;
   try {
     //console.log(userId);
 

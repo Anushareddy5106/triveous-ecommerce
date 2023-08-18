@@ -1,5 +1,8 @@
 import express from "express";
 
+import { authenticate } from "../middlewares/authenticate.js";
+import { authorize } from "../middlewares/authorize.js";
+
 import {
   addProduct,
   fetchProductById,
@@ -8,8 +11,18 @@ import {
 
 const router = express.Router();
 
-router.post("/add/:userId", addProduct);
-router.get("/:productId", fetchProductById);
-router.get("/categories/:categoryId", fetchProductsByCategory);
+router.post("/add", authenticate, authorize(["seller"]), addProduct);
+router.get(
+  "/:productId",
+  authenticate,
+  authorize(["seller", "customer"]),
+  fetchProductById
+);
+router.get(
+  "/categories/:categoryId",
+  authenticate,
+  authorize(["seller", "customer"]),
+  fetchProductsByCategory
+);
 
 export default router;

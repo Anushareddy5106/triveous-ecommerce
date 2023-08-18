@@ -2,7 +2,7 @@ import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
 
 export const addToCart = async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.body;
   const { productId } = req.body;
   try {
     if (!productId) {
@@ -48,7 +48,7 @@ export const addToCart = async (req, res) => {
 };
 
 export const updateCartItem = async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.body;
   const { productId, newQuantity } = req.body;
 
   try {
@@ -86,7 +86,7 @@ export const updateCartItem = async (req, res) => {
 };
 
 export const removeCartItem = async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.body;
   const { productId } = req.body;
 
   try {
@@ -119,7 +119,7 @@ export const removeCartItem = async (req, res) => {
 };
 
 export const getCart = async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.body;
   try {
     const cart = await Cart.findOne({ userId }).populate("items.productId");
 

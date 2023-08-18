@@ -2,8 +2,8 @@ import Product from "../models/Product.js";
 
 export const addProduct = async (req, res) => {
   const { title, description, price, availability, category } = req.body;
-  const { userId } = req.params;
-  console.log(userId);
+  const { userId } = req.body;
+  // console.log(userId);
 
   try {
     let categoryId;

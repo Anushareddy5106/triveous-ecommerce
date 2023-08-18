@@ -1,5 +1,8 @@
 import express from "express";
 
+import { authenticate } from "../middlewares/authenticate.js";
+import { authorize } from "../middlewares/authorize.js";
+
 import {
   placeOrder,
   getOrderHistory,
@@ -8,8 +11,13 @@ import {
 
 const router = express.Router();
 
-router.post("/placeOrder", placeOrder);
-router.get("/history", getOrderHistory);
-router.get("/orderDetails/:orderId", getOrderById);
+router.post("/placeOrder", authenticate, authorize(["customer"]), placeOrder);
+router.get("/history", authenticate, authorize(["customer"]), getOrderHistory);
+router.get(
+  "/orderDetails/:orderId",
+  authenticate,
+  authorize(["customer"]),
+  getOrderById
+);
 
 export default router;
