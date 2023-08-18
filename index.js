@@ -8,6 +8,7 @@ import userRoutes from "./routes/user.js";
 import productRoutes from "./routes/product.js";
 import cartRoutes from "./routes/cart.js";
 import orderRoutes from "./routes/order.js";
+import categoryRoutes from "./routes/category.js";
 
 const app = express();
 dotenv.config();
@@ -33,5 +34,6 @@ mongoose
 
 app.use("/", userRoutes);
 app.use("/products", productRoutes);
+app.use("/categoryList", categoryRoutes);
 app.use("/cart", cartRoutes);
 app.use("/order", orderRoutes);

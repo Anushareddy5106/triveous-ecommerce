@@ -9,14 +9,20 @@ export const addProduct = async (req, res) => {
     let categoryId;
     if (category == "Clothes") {
       categoryId = 1;
-    } else if (category === "Shoes") {
+    } else if (category === "Footwear") {
       categoryId = 2;
     } else if (category === "Electronics") {
       categoryId = 3;
-    } else if (category === "Appliances") {
+    } else if (category === "Kitchen & Appliances") {
       categoryId = 4;
-    } else {
+    } else if (category === "Home Decor") {
       categoryId = 5;
+    } else if (category === "Healthcare") {
+      categoryId = 6;
+    } else if (category === "Groceries") {
+      categoryId = 7;
+    } else {
+      categoryId = 8;
     }
 
     const product = new Product({
