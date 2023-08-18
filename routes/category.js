@@ -11,7 +11,7 @@ const router = express.Router();
 router.get(
   "/",
   authenticate,
-  authorize(["customer"]),
+  authorize(["customer", "seller"]),
   rateLimiting,
   getCategory
 );

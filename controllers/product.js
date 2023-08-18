@@ -7,7 +7,7 @@ export const addProduct = async (req, res) => {
 
   try {
     let categoryId;
-    if (category == "Clothes") {
+    if (category === "Clothes") {
       categoryId = 1;
     } else if (category === "Footwear") {
       categoryId = 2;
@@ -39,9 +39,9 @@ export const addProduct = async (req, res) => {
 
     return res
       .status(201)
-      .send({ message: "Product addedd successfully", product: product });
+      .send({ message: "Product added successfully", product: product });
   } catch (err) {
-    res.status(400).send({ message: "Something went wrong" });
+    res.status(400).send({ message: "Something went wrong", err });
   }
 };
 

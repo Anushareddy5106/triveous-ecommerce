@@ -19,7 +19,15 @@ const productSchema = mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ["Clothes", "Shoes", "Electronics", "Appliances"],
+    enum: [
+      "Clothes",
+      "Shoes",
+      "Electronics",
+      "Kitchen & Appliances",
+      "Home Decor",
+      "Healthcare",
+      "Groceries",
+    ],
     default: "Others",
   },
   categoryId: {

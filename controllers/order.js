@@ -71,7 +71,8 @@ export const getOrderHistory = async (req, res) => {
 };
 
 export const getOrderById = async (req, res) => {
-  const { userId, orderId } = req.params;
+  const { userId } = req.body;
+  const { orderId } = req.params;
   try {
     const order = await Order.findOne({ _id: orderId, userId });
 
