@@ -23,9 +23,23 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use(cors());
 
-app.get("/",(req,res)=>{
-    res.send("Triveous E-commerce Backend Server")
-})
+app.get("/", (req, res) => {
+  res.send(
+    `<style> 
+      *{
+        margin:0;
+      }
+    </style>
+    <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; margin:auto; background-color:black; color:white; height:100vh">
+      <h1>Triveous E-commerce Backend Server is Live &#127881;</h1>
+      <p style="font-size:20px; color:grey">
+        Go to API Documentation: 
+        <a style="color:blue" href=" https://triveous-backend.onrender.com/api-docs/">Click here</a>
+      </p>
+    <div>`
+  );
+});
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // console.log(process.env);
